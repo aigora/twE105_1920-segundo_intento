@@ -1,5 +1,4 @@
-# Título del trabajo
-CINE
+# CINE
 
 Se trata de un software de gestion de un cine en el que hay tres salas con tres peliculas.
 Nuestra idea es poder gestionar los sitios libres y ocupados, el precio de las entradas y los descuentos aplicables atraves del uso de funciones y ficheros para almacenar la informacion. 
@@ -7,11 +6,10 @@ El programa se podra utilizar de dos formas distintas, como administrador o como
 
 ## Integrantes del equipo
 
-Jaime, Bustillo Ergui, jbustilloe.
+###Jaime, Bustillo Ergui, jbustilloe.
 Adam, El Ouadrari, adamelouadrari.
 Alfonso, Balao morrás, abalao.
 David, Almarza Gonzales, dalmarzag
-
 
 
 ## Objetivos del trabajo
