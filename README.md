@@ -6,6 +6,7 @@ Nuestra idea es poder gestionar los sitios libres y ocupados, el precio de las e
 ## Integrantes del equipo
 
 Jaime, Bustillo Ergui, jbustilloe.
+Adam, El Ouadrari, adamelouadrari
 
 
 ## Objetivos del trabajo
