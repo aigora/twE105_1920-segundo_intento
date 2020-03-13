@@ -6,13 +6,14 @@ El programa se podra utilizar de dos formas distintas, como administrador o como
 
 ## Integrantes del equipo
 
-###Jaime, Bustillo Ergui, jbustilloe.
-Adam, El Ouadrari, adamelouadrari.
-Alfonso, Balao morrás, abalao.
-David, Almarza Gonzales, dalmarzag
+### Jaime, Bustillo Ergui, jbustilloe.
+### Adam, El Ouadrari, adamelouadrari.
+### Alfonso, Balao morrás, abalao.
+### David, Almarza Gonzales, dalmarzag
 
 
 ## Objetivos del trabajo
+
 Realizacion de un menu en el que nos permita registrarnos. una vez lo hayamos hecho, no será necesario rellenar todos nuestros datos, solo los necesario para iniciar sesion. 
 utilizar ficheros para almacenar los datos del usuario, tanto si es administrador o como si es usuario del cine
 Utilizar ficheros para almacenar la informacion sobre las salas y las posibles ofertas por membresia.
