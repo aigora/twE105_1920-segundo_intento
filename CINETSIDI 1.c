@@ -9,7 +9,7 @@ double main()
 	int num;
 	int peli;//pelicula elegida
 	
-	setlocale(LC_ALL, "spanish");//poder escribir caracteres como la Ã± y los acentos
+	setlocale(LC_ALL, "spanish");//poder escribir caracteres como la ñ y los acentos
 	
 	printf(" \t\t  -----CINETSIDI-----\n");
 	do
