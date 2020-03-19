@@ -15,10 +15,10 @@ double main()
 	do
 	{
 	
-	printf("Â¿QuÃ© desea hacer?:\n\t 1.INICIAR SESIÃ“N\t 2.CREAR UNA CUENTA\n");
+	printf("¿Qué desea hacer?:\n\t 1.INICIAR SESIÓN\t 2.CREAR UNA CUENTA\n");
 	scanf("%i", &op1);//decide si iniciar sesion o crear una cuenta
 	if (op1!=1&&op1!=2) //este bucle if es para decir al usuario que esta escribiendo mal el numero
-	 {printf("OperaciÃ³n no valida.\n Escriba 1 Ã³ 2 en funciÃ³n de si desea iniar sesiÃ³n o crear una cuenta.\n");
+	 {printf("Operación no valida.\n Escriba 1 ó 2 en función de si desea iniar sesión o crear una cuenta.\n");
 	 }
 	}
 	while(op1!=1&&op1!=2);
@@ -32,22 +32,22 @@ double main()
 		case 1://inicio de sesion
 			printf("Nombre de usuario (menos de 10 caracteres):\n");
 			scanf("%10s", nombre);
-			printf("ContraseÃ±a (menos de 10 caracteres):\n");
+			printf("Contraseña (menos de 10 caracteres):\n");
 			scanf("%10s", contra);
 			break;
 		case 2://crear una cuenta
 			printf("Nombre de usuario (menos de 10 caracteres):\n");
 			scanf("%10s", nombre);
-			printf("ContraseÃ±a (menos de 10 caracteres):\n");
+			printf("Contraseña (menos de 10 caracteres):\n");
 			scanf("%10s", contra1);
-			printf(" Repita la contraseÃ±a:\n");
+			printf(" Repita la contraseña:\n");
 			scanf("%10s", contra2);
 			while(strcmp(contra1,contra2)!=0)
 			{
-			printf("Las contraseÃ±as no coinciden, vuelva a introducirlas\n");
+			printf("Las contraseñas no coinciden, vuelva a introducirlas\n");
 			printf("ContraseÃ±a (menos de 10 caracteres):\n");
 			scanf("%10s", contra1);
-			printf(" Repita la contraseÃ±a:\n");
+			printf(" Repita la contraseña:\n");
 			scanf("%10s", contra2);
 			}
 			for (i=0;i<10;i++)
@@ -56,33 +56,33 @@ double main()
 			}
 		break;
 	}
-	char peli1[10]="SONIC", peli2[10]="PARÃSITO", peli3[10]="ONWARD";//peliculas en cartelera
+	char peli1[10]="SONIC", peli2[10]="PARÁSITO", peli3[10]="ONWARD";//peliculas en cartelera
 	char np[10];//peli que se desea cambiar
-	printf(" \t\t -----BIENVENIDO %s-----\n \t Â¿QuÃ© operaciÃ³n desea realizar?\n", nombre);
-	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACIÃ³N DE ENTRADAS\n 3.GESTIÃ³N DE LAS PELÃCULAS \n");
+	printf(" \t\t -----BIENVENIDO %s-----\n \t ¿Qué operación desea realizar?\n", nombre);
+	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACIÓN DE ENTRADAS\n 3.GESTIÓN DE LAS PELÍCULAS \n");
 	scanf("%i", &op2);
 	int j=0;
 	switch(op2)
 	{
 		case 1:
-		printf("Â¿CuÃ¡ntas entradas desea comprar?\n");
+		printf("¿Cuántas entradas desea comprar?\n");
 		scanf("%i", &num);
-		printf("Seleccione la pelÃ­cula\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
+		printf("Seleccione la película\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
 		scanf("%i", &peli);
 		break;
 		case 2:
-		printf("Â¿CuÃ¡ntas entradas desea devolver?\n");
+		printf("¿Cuántas entradas desea devolver?\n");
 		scanf("%i", &num);
-		printf("Seleccione la pelÃ­cula\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
+		printf("Seleccione la película\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
 		scanf("%i", &peli);
 		break;
 		case 3:
-		printf("Seleccione la pelÃ­cula que desea modificar\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
+		printf("Seleccione la película que desea modificar\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
 		scanf("%i", &peli);
 		switch (peli)
 		{
 			case 1:
-				printf("Introduce la nueva pelIcula\n");
+				printf("Introduce la nueva película\n");
 				scanf("%s", np);
 				for (j=0;j<10;j++)
 			{
@@ -90,7 +90,7 @@ double main()
 			}
 			break;
 			case 2:
-			printf("Introduce la nueva pelÃ­cula\n");
+			printf("Introduce la nueva película\n");
 				scanf("%s", np);
 				for (j=0;j<10;j++)
 			{
@@ -98,7 +98,7 @@ double main()
 			}
 			break;
 			case 3:
-			printf("Introduce la nueva pelÃ­cula\n");
+			printf("Introduce la nueva película\n");
 				scanf("%s", np);
 				for (j=0;j<10;j++)
 			{
