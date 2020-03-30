@@ -1,123 +1,109 @@
 #include <stdio.h>
-#include <string.h>
-#include <locale.h>
+#include <stdlib.h> 	/* system */
+#include <string.h>		/* gets, strcmp */
+#include <conio.h>		/* getch */
+#include <locale.h>		/* permite poner caracteres de otros lenguajes como tÌldes o 'Ò' */
+
+#define USUARIO "Alumnos"		/* usuario a introducir */
+#define CLAVE "Etsidi1"			/* clave a introducir */
+
+#define LONGITUD 20		/* longitud de las cadenas */
+
+int iniciosesion();		/* funciÛn de inicio de sesiÛn */
 
 int main()
 {
-	int op1;
-	int op2;
-	int num;
-	int peli;
-	/*pelicula elegida*/
+	int ingresa;
 	
-	char nombre[10];
-	char contra[10];
-	char contra1[10];
-	char contra2[10];
-	int i=0;
+	setlocale(LC_ALL, "spanish");		/* permite poner caracteres del espaÒol */
 	
-	char peli1[10]="SONIC";
-	char peli2[10]="PAR√ÅSITO";
-	char peli3[10]="ONWARD";
-	/*peliculas en cartelera*/
-	char np[10];
-	/*peli que se desea cambiar*/
+	ingresa = iniciosesion();
 	
-	int j=0;
+	if(ingresa == 1)								/* si la funciÛn devuelve un 1, puedes continuar el programa */
+	{
+		printf("\n\n\tBienvenido al Sistema\n");
+	}
 	
-	setlocale(LC_ALL, "spanish");
-	/*poder escribir caracteres como la √± y los acentos*/
+	else											/* si la funciÛn devuelve otro n˙mero, sales del programa */
+	{
+		printf("\n\tHa sobrepasado el n˙mero m·ximo de intentos permitidos\n");
+		return 1;
+	}
 	
-	printf(" \t\t  -----CINETSIDI-----\n");
-	
+	return 0;
+}
+
+
+
+
+
+
+int iniciosesion()
+{
+	char 	usuario	[LONGITUD + 1];	/* cadena que almacena el usuario introducido */
+	char	clave	[LONGITUD + 1];	/* cadena que almacena la clave introducida */
+	char 	caracter;				/* variable auxiliar para que el programa imprima '*' */
+	int		intento = 0;			/* registra el n˙mero de intentos */
+	int		ingresa = 0;			/* registra si la los credenciales son correctos */
+	int		i 		= 0;			/* variable contador para desplazarnos por clave[] y hacer que el programa imprima '*' */
+		
 	do
 	{
-		printf("¬øQu√© desea hacer?:\n\t 1.INICIAR SESI√ìN\t 2.CREAR UNA CUENTA\n");
-		scanf("%i", &op1);
-		/*decide si iniciar sesion o crear una cuenta*/
-		
-		if (op1!=1&&op1!=2)
-			printf("Operaci√≥n no valida.\n Escriba 1 √≥ 2 en funci√≥n de si desea iniar sesi√≥n o crear una cuenta.\n");
-		/*este bucle if es para decir al usuario que esta escribiendo mal el numero*/
-			
-	} while( op1 != 1 && op1 != 2 );
-	
-	switch (op1)
-	{
-		case 1:/*inicio de sesion*/
-			printf("Nombre de usuario (menos de 10 caracteres):\n");
-			scanf("%10s", nombre);
-			printf("Contrase√±a (menos de 10 caracteres):\n");
-			scanf("%10s", contra);
-			break;
-		case 2:/*crear una cuenta*/
-			printf("Nombre de usuario (menos de 10 caracteres):\n");
-			scanf("%10s", nombre);
-			printf("Contrase√±a (menos de 10 caracteres):\n");
-			scanf("%10s", contra1);
-			printf(" Repita la contrase√±a:\n");
-			scanf("%10s", contra2);
-			while(strcmp(contra1,contra2)!=0)
-			{
-				printf("Las contrase√±as no coinciden, vuelva a introducirlas\n");
-				printf("Contrase√±a (menos de 10 caracteres):\n");
-				scanf("%10s", contra1);
-				printf(" Repita la contrase√±a:\n");
-				scanf("%10s", contra2);
-			}
-				for (i=0;i<10;i++)
-				{
-					contra[i]=contra1[i];
-				}
-		break;
-	}
-	printf(" \t\t -----BIENVENIDO %s-----\n \t ¬øQu√© operaci√≥n desea realizar?\n", nombre);
-	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI√≥N DE ENTRADAS\n 3.GESTI√≥N DE LAS PEL√çCULAS \n");
-	scanf("%i", &op2);
-	switch(op2)
-	{
-		case 1:
-		printf("¬øCu√°ntas entradas desea comprar?\n");
-		scanf("%i", &num);
-		printf("Seleccione la pel√≠cula\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
-		scanf("%i", &peli);
-		break;
-		case 2:
-		printf("¬øCu√°ntas entradas desea devolver?\n");
-		scanf("%i", &num);
-		printf("Seleccione la pel√≠cula\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
-		scanf("%i", &peli);
-		break;
-		case 3:
-		printf("Seleccione la pel√≠cula que desea modificar\n sala 1:%s\n sala 2:%s\n sala 3:%s\n", peli1, peli2, peli3);
-		scanf("%i", &peli);
-		switch (peli)
+		i = 0;
+		system("cls");							/* limpia la pantalla en caso de tener que repetir el bucle */
+		printf("\n\t\t\tINICIO DE SESI”N\n");	
+		printf("\t\t\t----------------\n");
+		printf("\n\tUSUARIO: ");				/* pregunta usuario */
+		gets(usuario);							/* almacena usuario */
+		printf("\n\tCONTRASE—A: ");					/* pregunta clave */
+		while( ( caracter = getch() ) )			/* almacena clave mostrando '*' en lugar de la contraseÒa introducida */
 		{
-			case 1:
-				printf("Introduce la nueva pelIcula\n");
-				scanf("%s", np);
-				for (j=0;j<10;j++)
+			if(caracter == 13)			/* tecla "enter" en ascii vale 13. Equivale a decir if(presionas tecla enter) */
 			{
-				peli1[j]=np[j];
+				clave[i] = '\0';		/* en el ˙ltimo caracter almacena el NULL para indicar que la cadena ha acabado ahÌ */
+				break;					/* sale del bucle while */
 			}
-			break;
-			case 2:
-			printf("Introduce la nueva pel√≠cula\n");
-				scanf("%s", np);
-				for (j=0;j<10;j++)
+			
+			else if(caracter == 8)		/* tecla "retroceso" en ascii vale 8. Equivale a decir if(presionas tecla retroceso) */
 			{
-				peli2[j]=np[j];
+				if(i > 0)				/* hace que solo permita borrar lo que se ha escrito */
+				{
+					i--;				/* reduce el valor i al presionar el retroceso para retroceder una posiciÛn en clave */
+					printf("\b \b");	/* elimina el ˙ltimo '*' impreso en pantalla */
+				}
 			}
-			break;
-			case 3:
-			printf("Introduce la nueva pel√≠cula\n");
-				scanf("%s", np);
-				for (j=0;j<10;j++)
+			
+			else							/* al presionar cualquier tecla que no sea "enter" se va a ejecutar la sentencia else */
 			{
-				peli3[j]=np[j];
+				if (i < LONGITUD)
+				{
+					printf("*");			/* se va a imprimir un '*' en lugar del caracter seleccionado */
+					clave[i] = caracter;	/* se almacena el caracter en clave con ayuda de i */
+					i++;					/* i aumenta un valor para que clave aumente una posiciÛn en el sigiuiente caracter */
+				}
+				
 			}
-			break;
 		}
-	}
-	return 0;
+		
+		/* printf("\nClave leida: %s\n", clave); */ /* descomentar para imprimir el valor de clave y ver si el programa registra bien la clave */
+		
+		if(strcmp(usuario, USUARIO) == 0 && strcmp(clave, CLAVE) == 0)	/* compara con la funciÛn strcmp si las cadenas son iguales */
+		{
+			ingresa = 1;												/* si esto se cumple, igresa vale 1 */
+		}
+		
+		else														/* si las cadenas son distintas se ejecuta el else */
+		{
+			printf("\n\n\tUsuario y/o clave son incorrectos\n");
+			intento++;												/* ejecutar el else suma uno a la variable intento */
+			getchar();												/* hace que el programa se pare hasta presionar una tecla */
+		}
+		
+	}while( intento < 3 && ingresa == 0 );		/* hace que el programa se repita hasta q falles 3 veces o introduzcas bien los datos */
+	
+	if(ingresa == 1)								/* si se sale del bucle mediante ingresa == 1, se ejecuta este if y la funciÛn devuelve un 1*/
+		return 1;
+	
+	
+	return 0; 		/* si se sale del bucle mediante intento < 3, se ejecuta el else y la funciÛn devuelve un 0*/
 }
