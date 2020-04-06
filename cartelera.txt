@@ -1,0 +1,15 @@
+		CARTELERA CINETSIDI
+Sala 1: SONIC
+	Horarios:a.16:30
+		 b.19:00 
+		 c.21:30
+
+Sala 2: PARASITO
+	Horarios:a.16:00 
+		 b.18:30
+		 c.21:00
+
+Sala 3: ONWARD
+	Horarios:a.16:30
+		 b.19:00
+		 c.21:30
