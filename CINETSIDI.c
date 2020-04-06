@@ -14,13 +14,17 @@
 
 int iniciosesion();		/* función de inicio de sesión */
 
+void compraentradas(); 	/*funcion de comprar entradas*/
 
+void devolverentradas();	/*funcion de devoluciones*/
 
+void cartelera(char cartelera[]); /*cartelera*/
 
 
 int main()
 {
 	int ingresa;
+	int op;
 	
 	
 	setlocale(LC_ALL, "spanish");		/* permite poner caracteres del español */
@@ -41,10 +45,25 @@ int main()
 		printf("\n\tHa sobrepasado el número máximo de intentos permitidos\n");
 		return 1;
 	}
-	
-	
-	
-	
+	printf("?Qu? operaci?n desea realizar?\n");
+	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI?N DE ENTRADAS \n");
+	scanf("%i",&op);
+	while(op!=1 && op!=2)
+	{
+		printf("opcion no valida\n");
+		printf("seleccione una opcion valida\n");
+		printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI?N DE ENTRADAS \n");
+		scanf("%i",&op);
+	}
+	switch(op)
+	{
+		case 1://comprar entradas
+		compraentradas();
+		break;
+		case 2://cancelar entradas
+		devolverentradas();
+		break;
+	}
 	return 0;
 }
 
@@ -122,3 +141,64 @@ int iniciosesion()
 	
 	return 0; 		/* si se sale del bucle mediante intento < 3, se ejecuta el else y la función devuelve un 0*/
 }
+void compraentradas()
+{
+	int sala;
+	char hora;
+	cartelera("cartelera.txt");
+	printf("\nindique la sala de la pelicula que desea ver (1, 2, 3)\n");//eleccion de la sala
+	scanf("%i", &sala);
+	while(sala!=1 && sala!=2 && sala!=3)
+	{
+		printf("Esa sala no existe\n");
+		printf("seleccione una opcion valida\n");
+		scanf("%i",&sala);
+	}
+	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
+	scanf("%c", &hora);
+	while(hora!='a' && hora!='b' && hora!='c')
+	{
+		printf("Opcion no valida\n");
+		printf("seleccione una opcion valida\n");
+		scanf("%c",&hora);
+	}
+	
+}
+
+void devolverentradas()
+{
+	cartelera("cartelera.txt");
+		printf("\nindique la sala de la entrada que desea devolver (1, 2, 3)\n");//eleccion de la sala
+	scanf("%i", &sala);
+	while(sala!=1 && sala!=2 && sala!=3)
+	{
+		printf("Esa sala no existe\n");
+		printf("seleccione una opcion valida\n");
+		scanf("%i",&sala);
+	}
+	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
+	scanf("%c", &hora);
+	while(hora!='a' && hora!='b' && hora!='c')
+	{
+		printf("Opcion no valida\n");
+		printf("seleccione una opcion valida\n");
+		scanf("%c",&hora);
+	}
+}
+
+void cartelera(char cartelera[])//funcion para imprimir la cartelera
+{
+		FILE* archivo;
+	char i;
+	archivo=fopen(cartelera, "r");
+	if (archivo!=NULL)
+	{
+		while(!feof(archivo))
+		{
+			fscanf(archivo,"%c", &i);
+			printf("%c", i);
+		}
+			fclose(archivo);
+	}
+}
+
