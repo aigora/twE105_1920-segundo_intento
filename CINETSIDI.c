@@ -167,6 +167,7 @@ void compraentradas()
 
 void devolverentradas()
 {
+	int sala, hora;
 	cartelera("cartelera.txt");
 		printf("\nindique la sala de la entrada que desea devolver (1, 2, 3)\n");//eleccion de la sala
 	scanf("%i", &sala);
