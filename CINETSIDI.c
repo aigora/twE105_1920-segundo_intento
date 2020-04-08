@@ -87,9 +87,9 @@ int iniciosesion()
 		system("cls");							/* limpia la pantalla en caso de tener que repetir el bucle */
 		printf("\n\t\t\tINICIO DE SESIÓN\n");	
 		printf("\t\t\t----------------\n");
-		printf("\n\tUSUARIO: ");				/* pregunta usuario */
+		printf("\n\tUSUARIO (%s): ", USUARIO);				/* pregunta usuario */
 		gets(usuario);							/* almacena usuario */
-		printf("\n\tCONTRASEÑA: ");					/* pregunta clave */
+		printf("\n\tCONTRASEÑA (%s): ", CLAVE);					/* pregunta clave */
 		while( ( caracter = getch() ) )			/* almacena clave mostrando '*' en lugar de la contraseña introducida */
 		{
 			if(caracter == 13)			/* tecla "enter" en ascii vale 13. Equivale a decir if(presionas tecla enter) */
