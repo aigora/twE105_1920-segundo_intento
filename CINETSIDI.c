@@ -45,16 +45,13 @@ int main()
 		printf("\n\tHa sobrepasado el número máximo de intentos permitidos\n");
 		return 1;
 	}
+	do
+	{
 	printf("?Qu? operaci?n desea realizar?\n");
 	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI?N DE ENTRADAS \n");
 	scanf("%i",&op);
-	while(op!=1 && op!=2)
-	{
-		printf("opcion no valida\n");
-		printf("seleccione una opcion valida\n");
-		printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI?N DE ENTRADAS \n");
-		scanf("%i",&op);
 	}
+	while(op!=1 && op!=2);
 	switch(op)
 	{
 		case 1://comprar entradas
@@ -145,47 +142,32 @@ void compraentradas()
 {
 	int sala;
 	char hora;
+	do{
 	cartelera("cartelera.txt");
 	printf("\nindique la sala de la pelicula que desea ver (1, 2, 3)\n");//eleccion de la sala
-	scanf("%i", &sala);
-	while(sala!=1 && sala!=2 && sala!=3)
-	{
-		printf("Esa sala no existe\n");
-		printf("seleccione una opcion valida\n");
-		scanf("%i",&sala);
+	scanf("%i", &sala);		
 	}
+	while(sala!=1 && sala!=2 && sala!=3);
+	do{
 	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
-	scanf("%c", &hora);
-	while(hora!='a' && hora!='b' && hora!='c')
-	{
-		printf("Opcion no valida\n");
-		printf("seleccione una opcion valida\n");
-		scanf("%c",&hora);
-	}
-	
+	scanf("%c", &hora);}
+	while(hora!='a' && hora!='b' && hora!='c');
 }
 
 void devolverentradas()
 {
 	int sala;
 	char hora;
+	do{
 	cartelera("cartelera.txt");
-		printf("\nindique la sala de la entrada que desea devolver (1, 2, 3)\n");//eleccion de la sala
+	printf("\nindique la sala de la entrada que desea devolver (1, 2, 3)\n");//eleccion de la sala
 	scanf("%i", &sala);
-	while(sala!=1 && sala!=2 && sala!=3)
-	{
-		printf("Esa sala no existe\n");
-		printf("seleccione una opcion valida\n");
-		scanf("%i",&sala);
 	}
+	while(sala!=1 && sala!=2 && sala!=3);
+	do{
 	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
-	scanf("%c", &hora);
-	while(hora!='a' && hora!='b' && hora!='c')
-	{
-		printf("Opcion no valida\n");
-		printf("seleccione una opcion valida\n");
-		scanf("%c",&hora);
-	}
+	scanf("%c", &hora);}
+	while(hora!='a' && hora!='b' && hora!='c');
 }
 
 void cartelera(char cartelera[])//funcion para imprimir la cartelera
