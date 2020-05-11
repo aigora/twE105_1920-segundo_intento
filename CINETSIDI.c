@@ -43,7 +43,7 @@ int main()
 	
 	else											/* si la función devuelve otro número, sales del programa */
 	{
-		printf("\n\tHa sobrepasado el número máximo de intentos permitidos\n");
+		printf("\n\tHa sobrepasado el numero maximo de intentos permitidos\n");
 		return 1;
 	}
 	
@@ -90,11 +90,9 @@ int iniciosesion()
 	char 	caracter;				/* variable auxiliar para que el programa imprima '*' */
 	int		intento = 0;			/* registra el número de intentos */
 	int		ingresa = 0;			/* registra si la los credenciales son correctos */
-	int		i 		= 0;			/* variable contador para desplazarnos por clave[] y hacer que el programa imprima '*' */
 		
 	do
 	{
-		i = 0;
 		limpiar_pantalla();							/* limpia la pantalla en caso de tener que repetir el bucle */
 		printf("\n\t\t\tINICIO DE SESION\n");	
 		printf("\t\t\t----------------\n");
@@ -141,7 +139,7 @@ void introducepelis()
 	printf("\n\nIntroduce el numero de sala: ");
 	scanf("%i", &sala);
 	
-	f=fopen("cartelera.txt","a");
+	f=fopen("cartelera.txt","w");
 	fprintf(f, "%s\t %d\n", peli, sala);
 	fclose(f);
 }
