@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> 	/* system */
 #include <string.h>		/* gets, strcmp */
-#include <conio.h>		/* getch */
+/*#include <conio.h>*/		/* getch */
 #include <locale.h>		/* permite poner caracteres de otros lenguajes como tíldes o 'ñ' */
 
 #define USUARIO "Alumnos"		/* usuario a introducir */
@@ -12,7 +12,11 @@
 
 
 
-int iniciosesion();		/* función de inicio de sesión */
+int iniciosesion();			/* función de inicio de sesión */
+
+void introducepelis();		/* función introducir datos */
+
+void limpiar_pantalla();	/* Función que limpia la pantalla */
 
 void compraentradas(); 	/*funcion de comprar entradas*/
 
@@ -25,9 +29,6 @@ int main()
 {
 	int ingresa;
 	int op;
-	
-	
-	setlocale(LC_ALL, "spanish");		/* permite poner caracteres del español */
 	
 	
 	ingresa = iniciosesion();
@@ -45,10 +46,19 @@ int main()
 		printf("\n\tHa sobrepasado el número máximo de intentos permitidos\n");
 		return 1;
 	}
+	
+	
+	
+	introducepelis();
+	
+	
+	
+	
+	
 	do
 	{
-	printf("?Qu? operaci?n desea realizar?\n");
-	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACI?N DE ENTRADAS \n");
+	printf("\n\n\tQue operacion desea realizar?\n");
+	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACION DE ENTRADAS \n");
 	scanf("%i",&op);
 	}
 	while(op!=1 && op!=2);
@@ -61,6 +71,10 @@ int main()
 		devolverentradas();
 		break;
 	}
+	
+	
+	
+	
 	return 0;
 }
 
@@ -81,40 +95,13 @@ int iniciosesion()
 	do
 	{
 		i = 0;
-		system("cls");							/* limpia la pantalla en caso de tener que repetir el bucle */
-		printf("\n\t\t\tINICIO DE SESIÓN\n");	
+		limpiar_pantalla();							/* limpia la pantalla en caso de tener que repetir el bucle */
+		printf("\n\t\t\tINICIO DE SESION\n");	
 		printf("\t\t\t----------------\n");
 		printf("\n\tUSUARIO (%s): ", USUARIO);				/* pregunta usuario */
-		gets(usuario);							/* almacena usuario */
-		printf("\n\tCONTRASEÑA (%s): ", CLAVE);					/* pregunta clave */
-		while( ( caracter = getch() ) )			/* almacena clave mostrando '*' en lugar de la contraseña introducida */
-		{
-			if(caracter == 13)			/* tecla "enter" en ascii vale 13. Equivale a decir if(presionas tecla enter) */
-			{
-				clave[i] = '\0';		/* en el último caracter almacena el NULL para indicar que la cadena ha acabado ahí */
-				break;					/* sale del bucle while */
-			}
-			
-			else if(caracter == 8)		/* tecla "retroceso" en ascii vale 8. Equivale a decir if(presionas tecla retroceso) */
-			{
-				if(i > 0)				/* hace que solo permita borrar lo que se ha escrito */
-				{
-					i--;				/* reduce el valor i al presionar el retroceso para retroceder una posición en clave */
-					printf("\b \b");	/* elimina el último '*' impreso en pantalla */
-				}
-			}
-			
-			else							/* al presionar cualquier tecla que no sea "enter" se va a ejecutar la sentencia else */
-			{
-				if (i < LONGITUD)
-				{
-					printf("*");			/* se va a imprimir un '*' en lugar del caracter seleccionado */
-					clave[i] = caracter;	/* se almacena el caracter en clave con ayuda de i */
-					i++;					/* i aumenta un valor para que clave aumente una posición en el sigiuiente caracter */
-				}
-				
-			}
-		}
+		gets(usuario);								/* almacena usuario */
+		printf("\n\tCONTRASENA (%s): ", CLAVE);					/* pregunta clave */
+		gets(clave);
 		
 		/* printf("\nClave leida: %s\n", clave); */ /* descomentar para imprimir el valor de clave y ver si el programa registra bien la clave */
 		
@@ -138,6 +125,38 @@ int iniciosesion()
 	
 	return 0; 		/* si se sale del bucle mediante intento < 3, se ejecuta el else y la función devuelve un 0*/
 }
+
+
+
+
+void introducepelis()
+{
+	char	peli [LONGITUD + 1];
+	int		sala;
+	FILE *f;
+	
+	printf("\n\nIntroduce el nombre de la pelicula: ");
+	gets(peli);
+	
+	printf("\n\nIntroduce el numero de sala: ");
+	scanf("%i", &sala);
+	
+	f=fopen("cartelera.txt","a");
+	fprintf(f, "%s\t %d\n", peli, sala);
+	fclose(f);
+}
+
+
+void limpiar_pantalla()
+{
+  #ifdef _WIN32
+    system("cls");
+  #else
+    system("clear");
+  #endif
+}
+
+
 void compraentradas()
 {
 	int sala;
