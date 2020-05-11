@@ -20,22 +20,26 @@ typedef struct
 	
 }cartelera;
 
-cartelera cart[NPeliculas];
 
 
-int iniciosesion();			/* función de inicio de sesión */
+int iniciosesion();							/* función de inicio de sesión */
 
-void introducepelis();		/* función introducir datos */
+void introducepelis(cartelera cart[]);		/* función introducir datos */
 
-void limpiar_pantalla();	/* Función que limpia la pantalla */
+void menu(cartelera cart[]);
 
-void titulo();				/* Imprime Titulo */
+void compraentradas(cartelera cart[]);
+
+void limpiar_pantalla();					/* Función que limpia la pantalla */
+
+void titulo();								/* Imprime Titulo */
 
 
 int main()
 {
-	int ingresa;
+	cartelera cart[NPeliculas];
 	
+	int ingresa;
 	
 	
 	ingresa = iniciosesion();
@@ -56,10 +60,11 @@ int main()
 	
 	
 	
-	introducepelis();
+	introducepelis(cart);
 	
 	
 	
+	menu(cart);
 	
 	
 	
@@ -117,7 +122,7 @@ int iniciosesion()
 
 
 
-void introducepelis()
+void introducepelis(cartelera cart[])
 {
 	int 	i;						
 	int 	correcto;					/* variable aux para confirmar los datos */
@@ -125,7 +130,7 @@ void introducepelis()
 	
 	do
 	{
-		
+		printf("\n\n\t\t--Presiona enter para continuar--");
 		getchar();						/* pausa el programa hasta que recibe un caracter */
 		limpiar_pantalla();				/* limpia la pantalla */
 		titulo();						/* muestra el título */
@@ -148,7 +153,6 @@ void introducepelis()
 			gets(cart[i].hora);											/* almacena los caracteres introducidos */
 		}
 		
-		getchar();						/* pausa el programa hasta que recibe un caracter */
 		limpiar_pantalla();				/* limpia la pantalla */
 		titulo();						/* muestra el título */
 		
@@ -162,13 +166,113 @@ void introducepelis()
 			printf("\n\n\tHora: %s", cart[i].hora);
 		}
 		
-		printf("\n\n\n\n\tSon estos datos correctos?");					/* el programa pregunta si los datos son correctos */
-		printf("\n\t1.-Si");
-		printf("\n\t2.-No\n\t");
-		scanf("%i", &correcto);
+		
+		do
+		{
+			printf("\n\n\n\n\tSon estos datos correctos?");					/* el programa pregunta si los datos son correctos */
+			printf("\n\t1.-Si");
+			printf("\n\t2.-No\n\t");
+			fflush(stdin);
+			scanf("%i", &correcto);
+		}while(correcto != 1 && correcto != 2);
+		
 		
 	}while(correcto==2);												/* si son correctos, el programa avanza, si no lo son se repite el do while */
 }
+
+
+
+
+
+void menu(cartelera cart[])
+{
+	int elige;
+	
+	do
+	{
+		getchar();						/* pausa el programa hasta que recibe un caracter */
+		limpiar_pantalla();				/* limpia la pantalla */
+		titulo();						/* muestra el título */
+		
+		do
+		{
+			printf("\n\n\tPregunte al cliente que desea hacer:");
+			printf("\n\t1.-Comprar Entradas");
+			printf("\n\t2.-Devolver Entradas");
+			printf("\n\n\t3.-Salir\n\t");
+			fflush(stdin);
+			scanf("%i", &elige);
+			
+		}while(elige != 1 && elige != 2 && elige != 3);
+		
+		
+		switch(elige)
+		{
+			case 1:
+				compraentradas(cart);
+				getchar();
+				break;
+			
+			case 2:
+				
+				break;
+				
+			case 3:
+			
+				break;	
+		}
+		
+	}while(elige != 3);
+	
+}
+
+
+
+
+void compraentradas(cartelera cart[])
+{
+	int elige;
+	int i;
+	
+	getchar();						/* pausa el programa hasta que recibe un caracter */
+	limpiar_pantalla();				/* limpia la pantalla */
+	titulo();						/* muestra el título */
+	
+	
+	
+	
+	for(i = 0; i < NPeliculas; i++)									/* bucle que imprime la información recopilada */
+	{
+		printf("\n\n\n\tSala %i: ", cart[i].sala);
+		printf("\n\t-------");
+		
+		printf("\n\n\tPelicula: %s", cart[i].peliula);
+		
+		printf("\n\n\tHora: %s", cart[i].hora);
+	}
+	
+	
+	
+	
+	switch(elige)
+	{
+		case 1:
+			
+			break;
+		
+		case 2:
+			
+			break;
+			
+		case 3:
+		
+			break;	
+	}
+	
+}
+
+
+
 
 
 void limpiar_pantalla()			/*función que limpia la pantalla */
