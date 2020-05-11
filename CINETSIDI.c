@@ -87,7 +87,6 @@ int iniciosesion()
 {
 	char 	usuario	[LONGITUD + 1];	/* cadena que almacena el usuario introducido */
 	char	clave	[LONGITUD + 1];	/* cadena que almacena la clave introducida */
-	char 	caracter;				/* variable auxiliar para que el programa imprima '*' */
 	int		intento = 0;			/* registra el número de intentos */
 	int		ingresa = 0;			/* registra si la los credenciales son correctos */
 		
