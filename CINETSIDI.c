@@ -1,15 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h> 	/* system */
-#include <string.h>		/* gets, strcmp */
-/*#include <conio.h>*/		/* getch */
-#include <locale.h>		/* permite poner caracteres de otros lenguajes como tíldes o 'ñ' */
+#include <stdlib.h> 			/* system */
+#include <string.h>				/* gets, strcmp */
+#include <locale.h>				/* permite poner caracteres de otros lenguajes como tíldes o 'ñ' */
 
-#define USUARIO "Alumnos"		/* usuario a introducir */
-#define CLAVE "Etsidi1"			/* clave a introducir */
+#define USUARIO "a"		/* usuario a introducir */
+#define CLAVE "b"			/* clave a introducir */
 
-#define LONGITUD 20		/* longitud de las cadenas */
+#define N 20					/* longitud de las cadenas */
+#define NPeliculas 3			/* Número de películas o salas */
 
 
+
+
+typedef struct
+{
+	int 	sala;
+	char 	peliula[N];
+	char 	hora[N];
+	
+}cartelera;
+
+cartelera cart[NPeliculas];
 
 
 int iniciosesion();			/* función de inicio de sesión */
@@ -18,17 +29,13 @@ void introducepelis();		/* función introducir datos */
 
 void limpiar_pantalla();	/* Función que limpia la pantalla */
 
-void compraentradas(); 	/*funcion de comprar entradas*/
-
-void devolverentradas();	/*funcion de devoluciones*/
-
-void cartelera(char cartelera[]); /*cartelera*/
+void titulo();				/* Imprime Titulo */
 
 
 int main()
 {
 	int ingresa;
-	int op;
+	
 	
 	
 	ingresa = iniciosesion();
@@ -41,7 +48,7 @@ int main()
 		printf("\n\n\tBienvenido al Sistema\n");
 	}
 	
-	else											/* si la función devuelve otro número, sales del programa */
+	else											/* si la función devuelve otro número, sales del programa (has fallado más de 3 veces) */
 	{
 		printf("\n\tHa sobrepasado el numero maximo de intentos permitidos\n");
 		return 1;
@@ -52,25 +59,6 @@ int main()
 	introducepelis();
 	
 	
-	
-	
-	
-	do
-	{
-	printf("\n\n\tQue operacion desea realizar?\n");
-	printf(" 1.COMPRA DE ENTRADAS\n 2.CANCELACION DE ENTRADAS \n");
-	scanf("%i",&op);
-	}
-	while(op!=1 && op!=2);
-	switch(op)
-	{
-		case 1://comprar entradas
-		compraentradas();
-		break;
-		case 2://cancelar entradas
-		devolverentradas();
-		break;
-	}
 	
 	
 	
@@ -85,19 +73,22 @@ int main()
 
 int iniciosesion()
 {
-	char 	usuario	[LONGITUD + 1];	/* cadena que almacena el usuario introducido */
-	char	clave	[LONGITUD + 1];	/* cadena que almacena la clave introducida */
+	char 	usuario	[N];			/* cadena que almacena el usuario introducido */
+	char	clave	[N];			/* cadena que almacena la clave introducida */
 	int		intento = 0;			/* registra el número de intentos */
 	int		ingresa = 0;			/* registra si la los credenciales son correctos */
 		
 	do
 	{
 		limpiar_pantalla();							/* limpia la pantalla en caso de tener que repetir el bucle */
-		printf("\n\t\t\tINICIO DE SESION\n");	
-		printf("\t\t\t----------------\n");
-		printf("\n\tUSUARIO (%s): ", USUARIO);				/* pregunta usuario */
+		titulo();									/* escribe el título */
+		
+		printf("\n\tUSUARIO (%s): ", USUARIO);		/* pregunta usuario */
+		fflush(stdin);
 		gets(usuario);								/* almacena usuario */
-		printf("\n\tCONTRASENA (%s): ", CLAVE);					/* pregunta clave */
+		
+		printf("\n\tCONTRASENA (%s): ", CLAVE);		/* pregunta clave */
+		fflush(stdin);
 		gets(clave);
 		
 		/* printf("\nClave leida: %s\n", clave); */ /* descomentar para imprimir el valor de clave y ver si el programa registra bien la clave */
@@ -107,16 +98,16 @@ int iniciosesion()
 			ingresa = 1;												/* si esto se cumple, igresa vale 1 */
 		}
 		
-		else														/* si las cadenas son distintas se ejecuta el else */
+		else															/* si las cadenas son distintas se ejecuta el else */
 		{
 			printf("\n\n\tUsuario y/o clave son incorrectos\n");
-			intento++;												/* ejecutar el else suma uno a la variable intento */
-			getchar();												/* hace que el programa se pare hasta presionar una tecla */
+			intento++;													/* ejecutar el else suma uno a la variable intento */
+			getchar();													/* hace que el programa se pare hasta presionar una tecla */
 		}
 		
-	}while( intento < 3 && ingresa == 0 );		/* hace que el programa se repita hasta q falles 3 veces o introduzcas bien los datos */
+	}while( intento < 3 && ingresa == 0 );								/* hace que el programa se repita hasta q falles 3 veces o introduzcas bien los datos */
 	
-	if(ingresa == 1)								/* si se sale del bucle mediante ingresa == 1, se ejecuta este if y la función devuelve un 1*/
+	if(ingresa == 1)													/* si se sale del bucle mediante ingresa == 1, se ejecuta este if y la función devuelve un 1*/
 		return 1;
 	
 	
@@ -128,77 +119,70 @@ int iniciosesion()
 
 void introducepelis()
 {
-	char	peli [LONGITUD + 1];
-	int		sala;
-	FILE *f;
+	int 	i;						
+	int 	correcto;					/* variable aux para confirmar los datos */
 	
-	printf("\n\nIntroduce el nombre de la pelicula: ");
-	gets(peli);
 	
-	printf("\n\nIntroduce el numero de sala: ");
-	scanf("%i", &sala);
+	do
+	{
+		
+		getchar();						/* pausa el programa hasta que recibe un caracter */
+		limpiar_pantalla();				/* limpia la pantalla */
+		titulo();						/* muestra el título */
+		
+		printf("\n\n\tIntroduce los datos de las 3 salas");
 	
-	f=fopen("cartelera.txt","w");
-	fprintf(f, "%s\t %d\n", peli, sala);
-	fclose(f);
+		for(i = 0; i < NPeliculas; i++)									/* bucle que hace que el empleado introduzca los datos */
+		{
+			cart[i].sala = 1 + i;										/* se le proporciona a la variable de tipo estructura el número de sala */
+			
+			printf("\n\n\n\tSala %i: ", cart[i].sala);					/* se muestra en pantalla */
+			printf("\n\t-------");
+			
+			printf("\n\n\tIntroduce el nombre de la pelicula: ");		/* se le proporciona a la variable de tipo estructura el nombre de la película */
+			fflush(stdin);												/* limpia el buffer */
+			gets(cart[i].peliula);										/* almacena los caracteres introducidos */
+			
+			printf("\n\n\tIntroduce la hora: ");						/* se le proporciona a la variable de tipo estructura la hora de la película */
+			fflush(stdin);												/* limpia el buffer */
+			gets(cart[i].hora);											/* almacena los caracteres introducidos */
+		}
+		
+		getchar();						/* pausa el programa hasta que recibe un caracter */
+		limpiar_pantalla();				/* limpia la pantalla */
+		titulo();						/* muestra el título */
+		
+		for(i = 0; i < NPeliculas; i++)									/* bucle que imprime la información recopilada */
+		{
+			printf("\n\n\n\tSala %i: ", cart[i].sala);
+			printf("\n\t-------");
+			
+			printf("\n\n\tPelicula: %s", cart[i].peliula);
+			
+			printf("\n\n\tHora: %s", cart[i].hora);
+		}
+		
+		printf("\n\n\n\n\tSon estos datos correctos?");					/* el programa pregunta si los datos son correctos */
+		printf("\n\t1.-Si");
+		printf("\n\t2.-No\n\t");
+		scanf("%i", &correcto);
+		
+	}while(correcto==2);												/* si son correctos, el programa avanza, si no lo son se repite el do while */
 }
 
 
-void limpiar_pantalla()
+void limpiar_pantalla()			/*función que limpia la pantalla */
 {
-  #ifdef _WIN32
+  #ifdef _WIN32					/* si estas en windows usa esto */
     system("cls");
-  #else
+  #else							/* si estas en otro usa esto */
     system("clear");
   #endif
 }
 
 
-void compraentradas()
+void titulo()
 {
-	int sala;
-	char hora;
-	do{
-	cartelera("cartelera.txt");
-	printf("\nindique la sala de la pelicula que desea ver (1, 2, 3)\n");//eleccion de la sala
-	scanf("%i", &sala);		
-	}
-	while(sala!=1 && sala!=2 && sala!=3);
-	do{
-	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
-	scanf("%c", &hora);}
-	while(hora!='a' && hora!='b' && hora!='c');
+	printf("\n\t\t\tINICIO DE SESION\n");	
+	printf("\t\t\t----------------\n");
 }
-
-void devolverentradas()
-{
-	int sala;
-	char hora;
-	do{
-	cartelera("cartelera.txt");
-	printf("\nindique la sala de la entrada que desea devolver (1, 2, 3)\n");//eleccion de la sala
-	scanf("%i", &sala);
-	}
-	while(sala!=1 && sala!=2 && sala!=3);
-	do{
-	printf("\nindique el horario (a, b, c)\n");//eleccion de la sala
-	scanf("%c", &hora);}
-	while(hora!='a' && hora!='b' && hora!='c');
-}
-
-void cartelera(char cartelera[])//funcion para imprimir la cartelera
-{
-		FILE* archivo;
-	char i;
-	archivo=fopen(cartelera, "r");
-	if (archivo!=NULL)
-	{
-		while(!feof(archivo))
-		{
-			fscanf(archivo,"%c", &i);
-			printf("%c", i);
-		}
-			fclose(archivo);
-	}
-}
-
