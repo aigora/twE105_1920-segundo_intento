@@ -8,6 +8,7 @@
 
 #define N 20					/* longitud de las cadenas */
 #define NPeliculas 3			/* Número de películas o salas */
+#define TamanoSala 6			/* Altura y longitud de asientos en una sala */
 
 
 
@@ -17,6 +18,7 @@ typedef struct
 	int 	sala;
 	char 	peliula[N];
 	char 	hora[N];
+	char	asientos[TamanoSala][TamanoSala];
 	
 }cartelera;
 
@@ -26,13 +28,23 @@ int iniciosesion();							/* función de inicio de sesión */
 
 void introducepelis(cartelera cart[]);		/* función introducir datos */
 
+void llenamatrices(cartelera cart[]);
+
 void menu(cartelera cart[]);
 
 void compraentradas(cartelera cart[]);
 
+void reservarasientos(int elige, cartelera cart[]);
+
+void dibujarsala(int elige, cartelera cart[]);
+
 void limpiar_pantalla();					/* Función que limpia la pantalla */
 
 void titulo();								/* Imprime Titulo */
+
+
+
+
 
 
 int main()
@@ -62,6 +74,8 @@ int main()
 	
 	introducepelis(cart);
 	
+	
+	llenamatrices(cart);
 	
 	
 	menu(cart);
@@ -118,6 +132,7 @@ int iniciosesion()
 	
 	return 0; 		/* si se sale del bucle mediante intento < 3, se ejecuta el else y la función devuelve un 0*/
 }
+
 
 
 
@@ -184,6 +199,27 @@ void introducepelis(cartelera cart[])
 
 
 
+void llenamatrices(cartelera cart[])
+{
+	int i;
+	int j;
+	int k;
+	
+	for( i = 0; i < NPeliculas; i++)
+	{
+		for(j = 0; j < TamanoSala; j++)
+		{
+			for(k = 0; k < TamanoSala; k++)
+			{
+				cart[i].asientos[j][k] = '-';
+			}
+		}
+	}
+}
+
+
+
+
 void menu(cartelera cart[])
 {
 	int elige;
@@ -199,7 +235,7 @@ void menu(cartelera cart[])
 			printf("\n\n\tPregunte al cliente que desea hacer:");
 			printf("\n\t1.-Comprar Entradas");
 			printf("\n\t2.-Devolver Entradas");
-			printf("\n\n\t3.-Salir\n\t");
+			printf("\n\n\t3.-Cerrar el programa\n\t");
 			fflush(stdin);
 			scanf("%i", &elige);
 			
@@ -253,25 +289,97 @@ void compraentradas(cartelera cart[])
 	
 	
 	
-	
-	switch(elige)
+	do
 	{
-		case 1:
-			
-			break;
+		printf("\n\n\n\tPregunte al cliente que pelicula desea ver:");
 		
-		case 2:
-			
-			break;
-			
-		case 3:
+		for(i = 0; i < NPeliculas; i++)
+		{
+			printf("\n\t%i.-Sala %i", 1 + i, 1 + i);
+		}
 		
-			break;	
-	}
+		printf("\n\n\t4.-Cancelar\n\t");
+		fflush(stdin);
+		scanf("%i", &elige);
+		
+	}while(elige != 1 && elige != 2 && elige != 3);
 	
+	
+	
+	reservarasientos(elige, cart);
 }
 
 
+
+
+
+void reservarasientos(int elige, cartelera cart[])
+{
+	int numentradas;
+	int columna;
+	int fila;
+	int aux;
+	
+	
+	
+	dibujarsala(elige, cart);
+	
+	
+	
+	printf("\n\n\tPregunte al cliente cuantas entradas desea: ");
+	printf("\n\tNumero de entradas: ");
+	fflush(stdin);
+	scanf("%i", &numentradas);
+	
+	
+	for(aux = 0; aux < numentradas; aux++)
+	{
+		
+		dibujarsala(elige, cart);
+		
+		
+		printf("\n\n\tPregunte al cliente que entradas desea:");
+		printf("\n\t(Instrucciones: Introduce 2 numeros siendo el asiento de arriba a la derecha Columna 1 y Fila 1)");
+		
+		printf("\n\n\tColumna: ");
+		fflush(stdin);
+		scanf("%i", &columna);
+		
+		printf("\n\n\tFila: ");
+		fflush(stdin);
+		scanf("%i", &fila);
+		
+		cart[elige - 1].asientos[fila - 1][columna - 1] = 'X';
+	}
+	
+	
+
+}
+
+
+
+void dibujarsala(int elige, cartelera cart[])
+{
+	int i;
+	int j;
+	
+	limpiar_pantalla();				/* limpia la pantalla */
+	titulo();						/* muestra el título */
+	
+	
+	printf("\n\n\n\tSala %i: ", cart[elige - 1].sala);
+	printf("\n\t-------\n");
+	
+	for(i = 0; i < TamanoSala; i++)
+	{
+		printf("\n\t\t\t");
+		
+		for(j = 0; j < TamanoSala; j++)
+		{
+			printf("%c", cart[elige -1].asientos[i][j]);
+		}
+	}
+}
 
 
 
@@ -283,6 +391,9 @@ void limpiar_pantalla()			/*función que limpia la pantalla */
     system("clear");
   #endif
 }
+
+
+
 
 
 void titulo()
