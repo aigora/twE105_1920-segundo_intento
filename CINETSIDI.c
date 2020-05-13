@@ -12,7 +12,7 @@
 #define CSala				10
 #define Precio 				9.89				
 #define DFamiliaNumerosa 	0.15
-#define DJoven 				0.10
+#define DEstudiante 		0.10
 #define DJubilado 			0.13
 
 
@@ -263,10 +263,6 @@ void menu(cartelera cart[])
 			case 2:
 				
 				break;
-				
-			case 3:
-			
-				break;	
 		}
 		
 	}while(elige != 3);
@@ -432,7 +428,6 @@ void precio(numentradas)
 	}
 	
 	
-	printf("%f.2", Precio);
 	
 }
 
