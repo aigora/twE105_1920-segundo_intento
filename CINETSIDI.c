@@ -3,12 +3,17 @@
 #include <string.h>				/* gets, strcmp */
 #include <locale.h>				/* permite poner caracteres de otros lenguajes como tíldes o 'ñ' */
 
-#define USUARIO "a"		/* usuario a introducir */
-#define CLAVE "b"			/* clave a introducir */
+#define USUARIO "a"				/* usuario a introducir */
+#define CLAVE "b"				/* clave a introducir */
 
-#define N 20					/* longitud de las cadenas */
-#define NPeliculas 3			/* Número de películas o salas */
-#define TamanoSala 6			/* Altura y longitud de asientos en una sala */
+#define N 					20			/* longitud de las cadenas */
+#define NPeliculas 			3			/* Número de películas o salas */
+#define FSala 				6			/* Altura y longitud de asientos en una sala */
+#define CSala				10
+#define Precio 				9.89				
+#define DFamiliaNumerosa 	0.15
+#define DJoven 				0.10
+#define DJubilado 			0.13
 
 
 
@@ -18,7 +23,8 @@ typedef struct
 	int 	sala;
 	char 	peliula[N];
 	char 	hora[N];
-	char	asientos[TamanoSala][TamanoSala];
+	char	asientos[FSala][CSala];
+	int 	asientoslibres;
 	
 }cartelera;
 
@@ -35,6 +41,8 @@ void menu(cartelera cart[]);
 void compraentradas(cartelera cart[]);
 
 void reservarasientos(int elige, cartelera cart[]);
+
+void precio(int numentradas);
 
 void dibujarsala(int elige, cartelera cart[]);
 
@@ -207,13 +215,15 @@ void llenamatrices(cartelera cart[])
 	
 	for( i = 0; i < NPeliculas; i++)
 	{
-		for(j = 0; j < TamanoSala; j++)
+		for(j = 0; j < FSala; j++)
 		{
-			for(k = 0; k < TamanoSala; k++)
+			for(k = 0; k < CSala; k++)
 			{
-				cart[i].asientos[j][k] = '-';
+				cart[i].asientos[j][k] = '0';
 			}
 		}
+		
+		cart[i].asientoslibres = FSala * CSala;
 	}
 }
 
@@ -226,6 +236,7 @@ void menu(cartelera cart[])
 	
 	do
 	{
+		printf("\n\n\t\t--Presiona enter para continuar--");
 		getchar();						/* pausa el programa hasta que recibe un caracter */
 		limpiar_pantalla();				/* limpia la pantalla */
 		titulo();						/* muestra el título */
@@ -292,21 +303,21 @@ void compraentradas(cartelera cart[])
 	do
 	{
 		printf("\n\n\n\tPregunte al cliente que pelicula desea ver:");
-		
 		for(i = 0; i < NPeliculas; i++)
 		{
 			printf("\n\t%i.-Sala %i", 1 + i, 1 + i);
 		}
-		
 		printf("\n\n\t4.-Cancelar\n\t");
 		fflush(stdin);
 		scanf("%i", &elige);
 		
-	}while(elige != 1 && elige != 2 && elige != 3);
+	}while(elige != 1 && elige != 2 && elige != 3 && elige != 4);
 	
 	
-	
-	reservarasientos(elige, cart);
+	if(elige != 4)
+	{
+		reservarasientos(elige, cart);
+	}
 }
 
 
@@ -325,11 +336,14 @@ void reservarasientos(int elige, cartelera cart[])
 	dibujarsala(elige, cart);
 	
 	
-	
-	printf("\n\n\tPregunte al cliente cuantas entradas desea: ");
-	printf("\n\tNumero de entradas: ");
-	fflush(stdin);
-	scanf("%i", &numentradas);
+	do
+		{
+			printf("\n\n\tPregunte al cliente cuantas entradas desea: ");
+			printf("\n\tNumero de entradas: ");
+			fflush(stdin);
+			scanf("%i", &numentradas);
+			
+		}while(numentradas <= 0 && numentradas > cart[elige -1].asientoslibres);
 	
 	
 	for(aux = 0; aux < numentradas; aux++)
@@ -341,19 +355,85 @@ void reservarasientos(int elige, cartelera cart[])
 		printf("\n\n\tPregunte al cliente que entradas desea:");
 		printf("\n\t(Instrucciones: Introduce 2 numeros siendo el asiento de arriba a la derecha Columna 1 y Fila 1)");
 		
-		printf("\n\n\tColumna: ");
-		fflush(stdin);
-		scanf("%i", &columna);
+		do
+		{
+			printf("\n\n\tColumna: ");
+			fflush(stdin);
+			scanf("%i", &columna);
+			
+		}while(columna <= 0 && columna >  CSala);
 		
-		printf("\n\n\tFila: ");
-		fflush(stdin);
-		scanf("%i", &fila);
+		
+		do
+		{
+			printf("\n\n\tFila: ");
+			fflush(stdin);
+			scanf("%i", &fila);
+			
+		}while(columna <= 0 && columna >  FSala);
 		
 		cart[elige - 1].asientos[fila - 1][columna - 1] = 'X';
 	}
 	
+	limpiar_pantalla();							/* limpia la pantalla en caso de tener que repetir el bucle */
+	titulo();									/* escribe el título */
+	dibujarsala(elige, cart);
+	fflush(stdin);
+	printf("\n\n\n\n\t\t--Presiona enter para continuar--");
+	getchar();									/* pausa el programa hasta que recibe un caracter */
 	
+	precio(numentradas);
 
+}
+
+
+
+void precio(numentradas)
+{
+	float total;
+	int elige;
+	
+	total = 0;
+	
+	total = numentradas * Precio;
+	
+	limpiar_pantalla();				/* limpia la pantalla */
+	titulo();						/* muestra el título */
+	
+	do
+	{
+		printf("\n\n\tPregunte al cliente si posee algun descuento:");
+		printf("\n\t1.-Estudiante");
+		printf("\n\t2.-Familia Numerosa");
+		printf("\n\t3.-Jubilado");
+		printf("\n\t4.-Ninguno\n\t");
+		fflush(stdin);
+		scanf("%i", &elige);
+		
+	}while(elige != 1 && elige != 2 && elige != 3 && elige != 4);
+	
+	switch(elige)
+	{
+		case 1:
+			
+			break;
+			
+		case 2:
+			
+			break;
+			
+		case 3:
+			
+			break;
+			
+		case 4:
+			
+			break;
+	}
+	
+	
+	printf("%f.2", Precio);
+	
 }
 
 
@@ -370,11 +450,11 @@ void dibujarsala(int elige, cartelera cart[])
 	printf("\n\n\n\tSala %i: ", cart[elige - 1].sala);
 	printf("\n\t-------\n");
 	
-	for(i = 0; i < TamanoSala; i++)
+	for(i = 0; i < FSala; i++)
 	{
 		printf("\n\t\t\t");
 		
-		for(j = 0; j < TamanoSala; j++)
+		for(j = 0; j < CSala; j++)
 		{
 			printf("%c", cart[elige -1].asientos[i][j]);
 		}
@@ -398,6 +478,6 @@ void limpiar_pantalla()			/*función que limpia la pantalla */
 
 void titulo()
 {
-	printf("\n\t\t\tINICIO DE SESION\n");	
-	printf("\t\t\t----------------\n");
+	printf("\n\t\t\tCINE ETSIDI");	
+	printf("\n\t\t\t-----------\n");
 }
