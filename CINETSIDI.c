@@ -40,13 +40,13 @@ void menu(cartelera cart[]);
 
 void compraentradas(cartelera cart[]);
 
-void reservarasientos(int elige, cartelera cart[]);
-
 void precio(int numentradas);
 
 void devuelventradas(cartelera cart[]);
 
 void cancelarasientos(int elige, cartelera cart[]);
+
+void reservarasientos(int elige, cartelera cart[]);
 
 void precio(int numentradas);
 
@@ -437,7 +437,7 @@ void devuelventradas(cartelera cart[])
 
 
 
-void reservarasientos(int elige, cartelera cart[])
+void cancelarasientos(int elige, cartelera cart[])
 {
 	int numentradas;
 	int columna;
