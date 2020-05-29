@@ -500,7 +500,7 @@ void cancelarasientos(int elige, cartelera cart[])
 
 
 
-void precio(numentradas)
+void precio(int numentradas)
 {
 	float total;
 	int elige;
@@ -548,21 +548,6 @@ void precio(numentradas)
 }
 
 
-
-void dibujarsala(int elige, cartelera cart[])
-{
-	int i;
-	int j;
-	
-	limpiar_pantalla();				/* limpia la pantalla */
-	titulo();						/* muestra el título */
-	
-	
-	printf("\n\n\n\tSala %i: ", cart[elige - 1].sala);
-	printf("\n\t-------\n");
-	
-	for(i = 0; i < FSala; i++)
-	{
 
 
 void preciodev(numentradas)
