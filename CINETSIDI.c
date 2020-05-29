@@ -50,7 +50,7 @@ void reservarasientos(int elige, cartelera cart[]);
 
 void precio(int numentradas);
 
-void preciodev(numentradas);
+void preciodev(int numentradas);
 
 void dibujarsala(int elige, cartelera cart[]);
 
