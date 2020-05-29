@@ -1,8 +1,6 @@
-r# CINE
+#CINETSIDI
 
-Se trata de un software de gestion de un cine en el que hay tres salas con tres peliculas.
-Nuestra idea es poder gestionar los sitios libres y ocupados, el precio de las entradas y los descuentos aplicables atraves del uso de funciones y ficheros para almacenar la informacion. 
-El programa tendrá la opción de iniciar sesión. Los empleados que estén encargados de esta tarea sabrán los datos a introducir.
+El programa está pensado para un trabajdor de un cine que almacenará los datos de cada sala de manera manual y atenderá a las peticiones del consumidor. 
 
 ## Integrantes del equipo
 
@@ -17,12 +15,12 @@ David, Almarza Gonzales, dalmarzag
 
 ## Objetivos del trabajo
 
-* **Realizacion de un menu en el que nos permita iniciar sesión.** 
+* **Toda la informacion referente a las salas se almacenará en un vector de estructuras cuyas dimensiones pueden ser alteradas mediante un define** 
 
-* **Utilizar vectores de estructuras para almacenar la informacion sobre las salas y las posibles ofertas por membresia.**
+* **Todo el programa será compleamnete modificable mediante los defines iniciales, desde el numero de peliculas, los descuentos, salas hasta la dimensión de éstas.**
 
-* **Utilizar funciones para llevar a cabo el pago y los descuentos.**
+* **El programa creará 2 ficheros que según avance el programa se irán añadiendo nuevos datos y al reiniciar se limpiarán simulando asi una nueva jornada laboral. El fichero recibo actua a modo de ticket de compra almacenando toda la información de ese cliente, el número de netradas, el precio y su descuento.**
 
-* **Utilizar ficheros para almacenar los tickets de compra.**
+* **El fichero entrada almacenará la información de cada cliente así como la sala y hora de sus entradas, el numero de asientos y su ubicación individual.**
 
-* **Hacer un buen uso de #define para que al modificarlos el programe funcione igual.**
+
