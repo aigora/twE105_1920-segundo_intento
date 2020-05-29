@@ -1,4 +1,4 @@
-#CINETSIDI
+## CINETSIDI
 
 El programa está pensado para un trabajdor de un cine que almacenará los datos de cada sala de manera manual y atenderá a las peticiones del consumidor. 
 
